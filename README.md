@@ -22,8 +22,8 @@ swarm-mobile-android-native/
 
 ## Requirements
 - Android SDK (API level 21 or higher)
-- Java 11 or higher (compatible with JDK 17)
-- Gradle 8.5 or higher
+- Java 11 or higher (compatible with JDK 17-21)
+- Gradle 8.13.2 or higher
 - Swarm library .aar file (see below)
 
 ## Setting Up the .aar Library
@@ -91,10 +91,10 @@ The app is written in Java 11 and uses:
 - Target SDK: API 34 (Android 14)
 
 ## Gradle Version
-This project uses Gradle 8.5, which is compatible with:
-- Android Gradle Plugin 8.1.0+
-- Java 11-19
-- Android Studio Hedgehog (2023.1.1) and later
+This project uses Gradle 8.13.2, which is compatible with:
+- Android Gradle Plugin 8.7.3
+- Java 11-21
+- Android Studio Ladybug (2024.2.1) and later
 
 ## License
 This project is part of the Swarm ecosystem.

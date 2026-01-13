@@ -9,7 +9,7 @@ This project implements an Android application that uses an external Swarm libra
 - **Type**: Android Application
 - **Output**: `app-debug.apk` / `app-release.apk`
 - **Language**: Java 11
-- **Build System**: Gradle 8.5
+- **Build System**: Gradle 8.13.2
 
 **How .aar is Embedded**:
 The app module loads .aar files from the `app/libs/` directory:
@@ -128,7 +128,7 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 ## Requirements Met
 
 ✅ Created an Android app using Java 11
-✅ Uses Gradle 8.5 for build system
+✅ Uses Gradle 8.13.2 for build system
 ✅ App uses external .aar library from libs directory
 ✅ Implemented a comprehensive user interface
 ✅ Material Design components
@@ -137,8 +137,9 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 
 ## Technologies Used
 
-- **Language**: Java 11 (compatible with JDK 17)
-- **Build System**: Gradle 8.5
+- **Language**: Java 11 (compatible with JDK 17-21)
+- **Build System**: Gradle 8.13.2
+- **Android Gradle Plugin**: 8.7.3
 - **Android SDK**: API 34 (compileSdk), API 21+ (minSdk)
 - **UI Framework**: Material Components for Android
 - **Libraries**:

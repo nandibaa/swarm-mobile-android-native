@@ -14,8 +14,9 @@ The task was to:
 ### 1. ✅ Android Application (Uses External .aar)
 **Created**: `app/` - An Android Application Module
 
-- **Language**: Java 11 (compatible with JDK 17)
-- **Build System**: Gradle 8.5
+- **Language**: Java 11 (compatible with JDK 17-21)
+- **Build System**: Gradle 8.13.2
+- **Android Gradle Plugin**: 8.7.3
 - **Embeds**: External .aar via `implementation fileTree(dir: 'libs', include: ['*.aar'])`
 - **How Embedding Works**:
   - Place your Swarm library .aar file in `app/libs/` directory
@@ -93,8 +94,9 @@ swarm-mobile-android-native/
 
 ## Technical Specifications
 
-- **Language**: Java 11 (compatible with JDK 17)
-- **Build System**: Gradle 8.5
+- **Language**: Java 11 (compatible with JDK 17-21)
+- **Build System**: Gradle 8.13.2
+- **Android Gradle Plugin**: 8.7.3
 - **Android SDK**: API 34 (compile), API 21+ (minimum)
 - **Dependencies**:
   - androidx.appcompat:appcompat:1.6.1
