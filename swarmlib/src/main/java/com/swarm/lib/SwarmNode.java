@@ -59,7 +59,8 @@ public class SwarmNode {
     }
 
     public void stop() {
-
+        this.bee = null; // TODO implement explicit stop method in Go code
+        updateNodeInfo("", NodeStatus.Stopped);
         notifyNodeInfoChanged();
     }
 
@@ -92,7 +93,7 @@ public class SwarmNode {
                 var file = bee.download(hash);
 
                 if (file == null) {
-                    Logger.getLogger(this.getClass().getName(), "").info("Download failed: file is null for hash " + hash);
+                    Logger.getLogger(this.getClass().getName()).info("Download failed: file is null for hash " + hash);
                     return;
                 }
 
@@ -109,13 +110,12 @@ public class SwarmNode {
 
     @NonNull
     private LiteOptions getLiteOptions() {
-        String dataDir = (this.dataDir != null && !this.dataDir.isEmpty()) ? this.dataDir : "/data/data/beelite";
 
         var options = new LiteOptions();
         options.setFullNodeMode(false);
         options.setBootnodeMode(false);
         options.setBootnodes("/dnsaddr/mainnet.ethswarm.org");
-        options.setDataDir(dataDir);
+        options.setDataDir(dataDir + "/swarm-mobile");
         options.setWelcomeMessage("welcomeMessage");
         options.setBlockchainRpcEndpoint(rpcEndpoint);
         options.setSwapInitialDeposit("0");
