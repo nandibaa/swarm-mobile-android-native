@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import beelite.Beelite;
-import beelite.Beelite_;
-import beelite.LiteOptions;
+import mobile.Mobile;
+import mobile.MobileNode;
+import mobile.MobileNodeOptions;
 
 public class SwarmNode {
     private NodeInfo nodeInfo;
-    private Beelite_ bee;
+    private MobileNode mobileNode;
     private final List<SwarmNodeListener> listeners;
     private final String dataDir;
     private final String password;
@@ -37,11 +37,6 @@ public class SwarmNode {
         listeners.remove(listener);
     }
 
-    public void updateStatus(NodeStatus nodeStatus) {
-        this.nodeInfo = new NodeInfo("", nodeStatus);
-        notifyNodeInfoChanged();
-    }
-
     public void updateNodeInfo(String walletAddress, NodeStatus nodeStatus) {
         this.nodeInfo = new NodeInfo(walletAddress, nodeStatus);
         notifyNodeInfoChanged();
@@ -50,8 +45,8 @@ public class SwarmNode {
     public void start() {
         updateNodeInfo(nodeInfo.walletAddress(), NodeStatus.Started);
         try {
-            this.bee = connect();
-            updateNodeInfo(bee.walletAddress(), NodeStatus.Running);
+            this.mobileNode = connect();
+            updateNodeInfo(mobileNode.walletAddress(), NodeStatus.Running);
         } catch (RuntimeException re) {
             updateNodeInfo(nodeInfo.walletAddress(), NodeStatus.Stopped);
             throw re;
@@ -59,7 +54,7 @@ public class SwarmNode {
     }
 
     public void stop() {
-        this.bee = null; // TODO implement explicit stop method in Go code
+        this.mobileNode = null; // TODO implement explicit stop method in Go code
         updateNodeInfo("", NodeStatus.Stopped);
         notifyNodeInfoChanged();
     }
@@ -77,11 +72,11 @@ public class SwarmNode {
 
     public long getConnectedPeers() {
         if (isRunning()) {
-            if (bee == null) {
+            if (mobileNode == null) {
                 throw new RuntimeException("Bee is not initialized");
             }
 
-            return bee.connectedPeerCount();
+            return mobileNode.connectedPeerCount();
         }
 
         return 0;
@@ -90,7 +85,7 @@ public class SwarmNode {
     public void download(String hash) {
         if (isRunning()) {
             try {
-                var file = bee.download(hash);
+                var file = mobileNode.download(hash);
 
                 if (file == null) {
                     Logger.getLogger(this.getClass().getName()).info("Download failed: file is null for hash " + hash);
@@ -109,9 +104,9 @@ public class SwarmNode {
 
 
     @NonNull
-    private LiteOptions getLiteOptions() {
+    private MobileNodeOptions getLiteOptions() {
 
-        var options = new LiteOptions();
+        var options = new MobileNodeOptions();
         options.setFullNodeMode(false);
         options.setBootnodeMode(false);
         options.setBootnodes("/dnsaddr/mainnet.ethswarm.org");
@@ -131,20 +126,20 @@ public class SwarmNode {
         return options;
     }
 
-    private Beelite_ connect() {
+    private MobileNode connect() {
         var options = getLiteOptions();
 
-        Beelite_ bee = null;
+        MobileNode node;
         try {
-            bee = Beelite.start(options, password, "3");
+            node = Mobile.startNode(options, password, "3");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        if (bee == null) {
+        if (node == null) {
             throw new RuntimeException("Bee is not defined");
         }
 
-        return bee;
+        return node;
     }
 }
