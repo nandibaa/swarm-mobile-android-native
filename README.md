@@ -1,4 +1,4 @@
-# swarm-mobile-android-native
+# swarm-mobile-android
 Native Android Swarm Node
 
 ## Overview
